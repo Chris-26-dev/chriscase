@@ -3,13 +3,12 @@ import { notFound } from 'next/navigation'
 import DesignPreview from './DesignPreview'
 
 interface PageProps {
-  searchParams: {
-    [key: string]: string | string[] | undefined
-  }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 const Page = async ({ searchParams }: PageProps) => {
-  const { id } = searchParams
+  const params = await searchParams
+  const id = params.id
 
   if (!id || typeof id !== 'string') {
     return notFound()
@@ -19,7 +18,7 @@ const Page = async ({ searchParams }: PageProps) => {
     where: { id },
   })
 
-  if(!configuration) {
+  if (!configuration) {
     return notFound()
   }
 

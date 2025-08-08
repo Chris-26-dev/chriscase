@@ -8,7 +8,7 @@ import HandleComponent from "@/components/HandleComponent";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { RadioGroup } from "@headlessui/react";
 import { COLORS, FINISHES, MATERIALS, MODELS } from "@/validators/option-validator";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
@@ -58,6 +58,16 @@ const DesignConfigurator = ({
         },
     })
 
+    const saveToLocalStorage = (pos = renderedPosition, dim = renderedDimension) => {
+        const saved = localStorage.getItem("designOptions");
+        const parsed = saved ? JSON.parse(saved) : {};
+        localStorage.setItem("designOptions", JSON.stringify({
+            ...parsed,
+            position: pos,
+            dimension: dim,
+        }));
+    };
+
     const [options, setOptions] = useState<{
         color: (typeof COLORS)[number]
         model: (typeof MODELS.options)[number]
@@ -69,6 +79,30 @@ const DesignConfigurator = ({
         material: MATERIALS.options[0],
         finish: FINISHES.options[0],
     })
+
+    useEffect(() => {
+        const saved = localStorage.getItem("designOptions");
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                setOptions({
+                    color: COLORS.find(c => c.value === parsed.color) || COLORS[0],
+                    model: MODELS.options.find(m => m.value === parsed.model) || MODELS.options[0],
+                    material: MATERIALS.options.find(m => m.value === parsed.material) || MATERIALS.options[0],
+                    finish: FINISHES.options.find(f => f.value === parsed.finish) || FINISHES.options[0],
+                });
+
+                // Restore position & size if saved
+                if (parsed.position && parsed.dimension) {
+                    setRenderedPosition(parsed.position);
+                    setRenderedDimension(parsed.dimension);
+                }
+            } catch {
+                // ignore parse errors
+            }
+        }
+    }, []);
+
 
     const [renderedDimension, setRenderedDimension] = useState({
         width: imageDimensions.width / 4,
@@ -158,7 +192,7 @@ const DesignConfigurator = ({
 
 
     return (
-        <div className='relative mt-20 grid grid-cols-1 lg:grid-cols-3 mb-20 pb-20'>
+        <div className='relative mt-10 grid grid-cols-1 lg:grid-cols-3 mb-20 pb-20'>
             <div
                 ref={containerRef}
                 className='bg-gray-500 relative h-[37.5rem] overflow-hidden col-span-2 w-full max-w-4xl flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'>
@@ -184,32 +218,32 @@ const DesignConfigurator = ({
                 </div>
 
                 <Rnd
-                    default={{
-                        x: 150,
-                        y: 205,
-                        height: imageDimensions.height / 4,
-                        width: imageDimensions.width / 4,
-                    }}
+                    size={{ width: renderedDimension.width, height: renderedDimension.height }}
+                    position={{ x: renderedPosition.x, y: renderedPosition.y }}
                     onResizeStop={(_, __, ref, ___, { x, y }) => {
-                        setRenderedDimension({
-                            height: parseInt(ref.style.height.slice(0, -2)),
-                            width: parseInt(ref.style.width.slice(0, -2)),
-                        })
-
-                        setRenderedPosition({ x, y })
+                        const newDim = {
+                            height: parseInt(ref.style.height, 10),
+                            width: parseInt(ref.style.width, 10),
+                        };
+                        const newPos = { x, y };
+                        setRenderedDimension(newDim);
+                        setRenderedPosition(newPos);
+                        saveToLocalStorage(newPos, newDim);
                     }}
                     onDragStop={(_, data) => {
-                        const { x, y } = data
-                        setRenderedPosition({ x, y })
+                        const newPos = { x: data.x, y: data.y };
+                        setRenderedPosition(newPos);
+                        saveToLocalStorage(newPos, renderedDimension);
                     }}
-                    className='absolute z-20 border-[3px] border-primary'
+                    className="absolute z-20 border-[3px] border-primary"
                     lockAspectRatio
                     resizeHandleComponent={{
                         bottomRight: <HandleComponent />,
                         bottomLeft: <HandleComponent />,
                         topRight: <HandleComponent />,
                         topLeft: <HandleComponent />,
-                    }}>
+                    }}
+                >
                     <div className='relative w-full h-full'>
                         <NextImage
                             src={imageUrl}
@@ -376,31 +410,58 @@ const DesignConfigurator = ({
                     </div>
                 </ScrollArea>
 
-                <div className='w-full px-8 h-16 bg-white'>
-                    <div className='h-px w-full bg-zinc-200' />
-                    <div className='w-full h-full flex justify-end items-center'>
-                        <div className='w-full flex gap-6 items-center'>
-                            <p className='font-medium whitespace-nowrap'>
+                <div className='w-full px-8 bg-white'>
+                    <div className='w-full px-8 bg-white flex flex-col justify-center py-4'>
+                        <div className='h-px w-full bg-zinc-200 mb-3' />
+
+                        {/* Price row with label */}
+                        <div className='flex justify-between items-center'>
+                            <span className='text-gray-500 font-medium'>Total Amount</span>
+                            <span className='text-xl font-bold'>
                                 {formatPrice(
-                                    (BASE_PRICE + options.finish.price + options.material.price) /
-                                    100
+                                    (BASE_PRICE + options.finish.price + options.material.price) / 100
                                 )}
-                            </p>
+                            </span>
+                        </div>
+
+                        {/* Buttons row */}
+                        <div className='w-full flex gap-3 mt-3'>
                             <Button
-                                // isLoading={isPending}
-                                // disabled={isPending}
-                                // loadingText="Saving"
-                                onClick={() =>
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                    localStorage.removeItem("designOptions");
+                                    router.push(`/configure/upload?id=${configId}`)
+                                }}
+                                className="w-1/2 gap-1"
+                            >
+                                Back
+                            </Button>
+
+                            <Button
+                                onClick={() => {
+                                    localStorage.setItem(
+                                        "designOptions",
+                                        JSON.stringify({
+                                            ...JSON.parse(localStorage.getItem("designOptions") || "{}"),
+                                            color: options.color.value,
+                                            model: options.model.value,
+                                            material: options.material.value,
+                                            finish: options.finish.value,
+                                        })
+                                    );
+
                                     saveConfig({
                                         configId,
                                         color: options.color.value,
                                         finish: options.finish.value,
                                         material: options.material.value,
                                         model: options.model.value,
-                                    })
-                                }
+                                    });
+                                }}
+                                className="w-1/2"
                                 size='sm'
-                                className='flex-grow'>
+                            >
                                 Continue
                                 <ArrowRight className='h-4 w-4 ml-1.5 inline' />
                             </Button>

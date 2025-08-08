@@ -77,16 +77,16 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
         <>
             <div
                 aria-hidden='true'
-                className='pointer-events-none select-none absolute inset-0 overflow-hidden flex justify-center'>
+                className='pointer-events-none select-none fixed inset-0 overflow-hidden flex justify-center'>
                 <Confetti
                     active={showConfetti}
-                    config={{ elementCount: 200, spread: 90 }}
+                    config={{ elementCount: 1000, spread: 200 }}
                 />
             </div>
 
             <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
 
-            <div className='mt-20 flex flex-col items-center md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12'>
+            <div className='mt-10 flex flex-col items-center md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12'>
                 <div className='md:col-span-4 lg:col-span-3 md:row-span-2 md:row-end-2'>
                     <Phone
                         className={cn(`bg-${tw}`, "max-w-[150px] md:max-w-full")}
@@ -125,7 +125,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                     </div>
 
                     <div className='mt-8'>
-                        <div className='bg-gray-100 p-6 sm:rounded-lg sm:p-8'>
+                        <div className='bg-gray-100 p-4 sm:rounded-lg rounded-md sm:p-8'>
                             <div className='flow-root text-sm'>
                                 <div className='flex items-center justify-between py-1 mt-2'>
                                     <p className='text-gray-600'>Base price</p>
@@ -163,10 +163,18 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                             </div>
                         </div>
 
-                        <div className='mt-8 flex justify-end pb-12'>
+                        <div className='mt-8 flex gap-3 justify-end pb-12'>
+                            <Button
+                                variant="outline"
+                                onClick={() => router.push(`/configure/design?id=${configuration.id}`)}
+                                className='px-4 sm:px-6 lg:px-8 w-1/2 sm:w-auto'
+                            >
+                                Back
+                            </Button>
+
                             <Button
                                 onClick={() => handleCheckout()}
-                                className='px-4 sm:px-6 lg:px-8'>
+                                className='px-4 sm:px-6 lg:px-8 w-1/2 sm:w-auto'>
                                 Check out <ArrowRight className='h-4 w-4 ml-1.5 inline' />
                             </Button>
                         </div>

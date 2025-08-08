@@ -14,6 +14,7 @@ const Phone = ({ imgSrc, className, dark = false, ...props }: PhoneProps) => {
         className
       )}
       {...props}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={
           dark
@@ -25,6 +26,7 @@ const Phone = ({ imgSrc, className, dark = false, ...props }: PhoneProps) => {
       />
 
       <div className='absolute -z-10 inset-0'>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className='object-cover min-w-full min-h-full'
           src={imgSrc}

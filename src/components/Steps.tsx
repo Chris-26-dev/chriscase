@@ -1,100 +1,92 @@
 "use client"
 
-import { cn } from '@/lib/utils'
-import { usePathname } from 'next/navigation'
+import { cn } from "@/lib/utils"
+import { Check } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 const STEPS = [
   {
-    name: 'Step 1: Add image',
-    description: 'Choose an image for your case',
-    url: '/upload',
+    name: "Step 1: Add image",
+    description: "Choose an image for your case",
+    url: "/upload",
   },
   {
-    name: 'Step 2: Customize design',
-    description: 'Make the case yours',
-    url: '/design',
+    name: "Step 2: Customize design",
+    description: "Make the case yours",
+    url: "/design",
   },
   {
-    name: 'Step 3: Summary',
-    description: 'Review your final design',
-    url: '/preview',
+    name: "Step 3: Summary",
+    description: "Review your final design",
+    url: "/preview",
   },
 ]
 
-const Steps = () => {
+export default function Steps() {
   const pathname = usePathname()
 
   return (
-    <ol className='rounded-md bg-white lg:flex lg:rounded-none lg:border-l lg:border-r lg:border-gray-200'>
+    <ol className="bg-white rounded-md border border-zinc-200 flex flex-col lg:flex-row w-full">
       {STEPS.map((step, i) => {
         const isCurrent = pathname.endsWith(step.url)
-        const isCompleted = STEPS.slice(i + 1).some((step) =>
-          pathname.endsWith(step.url)
+        const isCompleted = STEPS.slice(i + 1).some((s) =>
+          pathname.endsWith(s.url)
         )
         const imgPath = `/step-${i + 1}.png`
 
         return (
-          <li key={step.name} className='relative overflow-hidden lg:flex-1'>
-            <div>
-              <span
-                className={cn(
-                  'absolute left-0 top-0 h-full w-1 bg-zinc-400 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full',
-                  {
-                    'bg-zinc-700': isCurrent,
-                    'bg-primary': isCompleted,
-                  }
+          <li
+            key={step.name}
+            className={cn(
+              "relative flex-1 border-b last:border-b-0 lg:border-b-0 lg:border-r last:lg:border-r-0 border-zinc-200"
+            )}
+          >
+            <div
+              className={cn(
+                "flex items-center gap-4 px-5 py-4 transition-colors duration-200",
+                isCurrent && "bg-zinc-300"
+              )}
+            >
+              {/* Step image */}
+              <div className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={imgPath}
+                  alt=""
+                  className="h-16 w-16 object-contain border-zinc-300 rounded-md"
+                />
+                {isCompleted && (
+                  <div className="absolute -top-2 -right-2 bg-primary rounded-full p-1">
+                    <Check className="h-4 w-4 text-white" />
+                  </div>
                 )}
-                aria-hidden='true'
-              />
+              </div>
 
-              <span
-                className={cn(
-                  i !== 0 ? 'lg:pl-9' : '',
-                  'flex items-center px-6 py-4 text-sm font-medium'
-                )}>
-                <span className='flex-shrink-0'>
-                  <img
-                    src={imgPath}
-                    className={cn(
-                      'flex h-20 w-20 object-contain items-center justify-center',
-                      {
-                        'border-none': isCompleted,
-                        'border-zinc-700': isCurrent,
-                      }
-                    )}
-                  />
+              {/* Step text */}
+              <div className="flex flex-col min-w-0">
+                <span
+                  className={cn(
+                    "text-sm font-semibold truncate",
+                    isCurrent
+                      ? "text-zinc-900"
+                      : isCompleted
+                      ? "text-zinc-500"
+                      : "text-zinc-700"
+                  )}
+                >
+                  {step.name}
                 </span>
-
-                <span className='ml-4 h-full mt-0.5 flex min-w-0 flex-col justify-center'>
-                  <span
-                    className={cn('text-sm font-semibold text-zinc-700', {
-                      'text-primary': isCompleted,
-                      'text-zinc-700': isCurrent,
-                    })}>
-                    {step.name}
-                  </span>
-                  <span className='text-sm text-zinc-500'>
-                    {step.description}
-                  </span>
+                <span
+                  className={cn(
+                    "text-xs truncate",
+                    isCurrent
+                      ? "text-zinc-700 font-medium"
+                      : "text-zinc-500"
+                  )}
+                >
+                  {step.description}
                 </span>
-              </span>
-
-              {/* separator */}
-              {i !== 0 ? (
-                <div className='absolute inset-0 hidden w-3 lg:block'>
-                  <svg
-                    className='h-full w-full text-gray-300'
-                    viewBox='0 0 12 82'
-                    fill='none'
-                    preserveAspectRatio='none'>
-                    <path
-                      d='M0.5 0V31L10.5 41L0.5 51V82'
-                      stroke='currentcolor'
-                      vectorEffect='non-scaling-stroke'
-                    />
-                  </svg>
-                </div>
-              ) : null}
+              </div>
             </div>
           </li>
         )
@@ -102,5 +94,3 @@ const Steps = () => {
     </ol>
   )
 }
-
-export default Steps
