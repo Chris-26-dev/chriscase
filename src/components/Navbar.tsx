@@ -3,6 +3,7 @@ import MaxWidthWrapper from './MaxWidthWrapper'
 import { buttonVariants } from './ui/button'
 import { ArrowRight } from 'lucide-react'
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import SignOutButton from './SignOutButton';
 
 const Navbar = async () => {
     const { getUser } = getKindeServerSession()
@@ -21,14 +22,7 @@ const Navbar = async () => {
                     <div className='h-full flex items-center space-x-4'>
                         {user ? (
                             <>
-                                <Link
-                                    href='/api/auth/logout'
-                                    className={buttonVariants({
-                                        size: 'sm',
-                                        variant: 'ghost',
-                                    })}>
-                                    Sign out
-                                </Link>
+                                <SignOutButton />
                                 {isAdmin ? (
                                     <Link
                                         href='/dashboard'
