@@ -29,7 +29,7 @@ const LoginModal = ({
                     <div className='relative mx-auto w-24 h-24 mb-2'>
                         <Image
                             src='/i1.png'
-                            alt='snake image'
+                            alt='iphone image'
                             className='object-contain'
                             fill
                         />
