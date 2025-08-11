@@ -38,7 +38,7 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
         totalPrice += PRODUCT_PRICES.material.polycarbonate
     if (finish === 'textured') totalPrice += PRODUCT_PRICES.finish.textured
 
-    const { mutate: createPaymentSession } = useMutation({
+    const { mutate: createPaymentSession, isPending } = useMutation({
         mutationKey: ['get-checkout-session'],
         mutationFn: createCheckoutSession,
         onSuccess: ({ url }) => {
@@ -165,6 +165,8 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
 
                         <div className='mt-8 flex gap-3 justify-end pb-12'>
                             <Button
+                                isLoading={isPending}
+                                disabled={isPending}
                                 variant="outline"
                                 onClick={() => router.push(`/configure/design?id=${configuration.id}`)}
                                 className='px-4 sm:px-6 lg:px-8 w-1/2 sm:w-auto'
@@ -173,6 +175,8 @@ const DesignPreview = ({ configuration }: { configuration: Configuration }) => {
                             </Button>
 
                             <Button
+                                isLoading={isPending}
+                                disabled={isPending}
                                 onClick={() => handleCheckout()}
                                 className='px-4 sm:px-6 lg:px-8 w-1/2 sm:w-auto'>
                                 Check out <ArrowRight className='h-4 w-4 ml-1.5 inline' />

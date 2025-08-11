@@ -427,6 +427,8 @@ const DesignConfigurator = ({
                         {/* Buttons row */}
                         <div className='w-full flex gap-3 mt-3'>
                             <Button
+                                isLoading={isPending}
+                                disabled={isPending}
                                 variant="outline"
                                 size="sm"
                                 onClick={() => {
@@ -439,6 +441,9 @@ const DesignConfigurator = ({
                             </Button>
 
                             <Button
+                                isLoading={isPending}
+                                disabled={isPending}
+                                loadingText="Saving"
                                 onClick={() => {
                                     localStorage.setItem(
                                         "designOptions",
