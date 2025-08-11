@@ -106,7 +106,7 @@ export default function Home() {
                 alt=""
                 className='absolute w-20 -left-6 -bottom-6 select-none'
               />
-              <Phone className='w-64' imgSrc='/testimonials/1.jpg' />
+              <Phone className='w-64' imgSrc='/testimonials/9.jpg' />
             </div>
           </div>
         </MaxWidthWrapper>
@@ -232,13 +232,13 @@ export default function Home() {
 
               <div className='relative h-80 md:h-full w-full md:justify-self-end max-w-sm rounded-xl bg-gray-900/5 ring-inset ring-gray-900/10 lg:rounded-2xl'>
                 <img
-                  src='/horse.jpg'
+                  src='testimonials/13.jpg'
                   alt=""
                   className='rounded-md object-cover bg-white shadow-2xl ring-1 ring-gray-900/10 h-full w-full'
                 />
               </div>
 
-              <Phone className='w-60' imgSrc='/horse_phone.jpg' />
+              <Phone className='w-60' imgSrc='testimonials/13.jpg' />
             </div>
           </div>
 
