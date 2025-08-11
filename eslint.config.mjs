@@ -27,6 +27,7 @@ const eslintConfig = [
       "@typescript-eslint/no-unnecessary-type-constraint": "off", // TS rule
       "react/no-unescaped-entities": "off", // React rule
       "@next/next/no-img-element": "off", // Next.js rule
+      "@typescript-eslint/ban-ts-comment": "off"
     },
   },
 ];

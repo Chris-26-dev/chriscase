@@ -49,7 +49,6 @@ export default function Steps() {
             >
               {/* Step image */}
               <div className="relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={imgPath}
                   alt=""

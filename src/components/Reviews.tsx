@@ -154,7 +154,6 @@ function ReviewGrid() {
 export function Reviews() {
     return (
         <MaxWidthWrapper className='relative max-w-5xl'>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
                 aria-hidden='true'
                 alt=""
