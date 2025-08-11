@@ -47,9 +47,9 @@ const ThankYou = () => {
 
   return (
     <div className='bg-white'>
-      <div className='mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
+      <div className='mx-auto max-w-3xl px-6 py-8 sm:px-6 sm:py-12 lg:px-8'>
         <div className='max-w-xl'>
-          <p className='text-base font-medium text-primary'>Thank you!</p>
+          <p className='text-2xl font-medium text-primary'>Thank you!</p>
           <h1 className='mt-2 text-4xl font-bold tracking-tight sm:text-5xl'>
             Your case is on the way!
           </h1>
