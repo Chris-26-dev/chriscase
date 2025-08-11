@@ -15,6 +15,9 @@ export async function POST(req: Request) {
             return new Response('Invalid signature', { status: 400 })
         }
 
+        // Add this debug logging right before constructEvent
+        console.log('Webhook secret:', process.env.STRIPE_WEBHOOK_SECRET ? 'exists' : 'missing');
+
         const event = stripe.webhooks.constructEvent(
             body,
             signature,
@@ -26,9 +29,7 @@ export async function POST(req: Request) {
                 throw new Error('Missing user email')
             }
 
-            const session = event.data.object as Stripe.Checkout.Session & {
-                shipping_details: { address: Stripe.Address }
-            }
+            const session = event.data.object as Stripe.Checkout.Session
 
             const { userId, orderId } = session.metadata || {
                 userId: null,
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
             }
 
             const billingAddress = session.customer_details!.address
-            const shippingAddress = session.shipping_details.address
+            const shippingAddress = session.collected_information!.shipping_details!.address
 
 
             const updatedOrder = await db.order.update({
@@ -71,6 +72,7 @@ export async function POST(req: Request) {
                     },
                 },
             })
+            console.log('[Webhook] Order updated:', updatedOrder)
         }
 
         return NextResponse.json({ result: event, ok: true })
