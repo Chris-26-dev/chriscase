@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ChrisCase - custom high-qaulity iphone cases",
-  description: "Create custom high-qaulity iphone cases in seconds",
+  title: "ChrisCase - custom high-quality iphone cases",
+  description: "Create custom high-quality iphone cases in seconds",
   icons: {
     icon: '/i1.png'
   }
