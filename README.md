@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📱 ChrisCase
 
-## Getting Started
+> Design your own phone case from any image you upload — with a clean, Apple-inspired experience.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 About ChrisCase
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ChrisCase is a custom phone case configurator and shop built entirely from scratch with the latest technologies:  
+▲ **Next.js 15.4.5** App Router, **Postgres**, **TypeScript**, **Tailwind CSS**, **Kinde Auth**, and **shadcn/ui**.  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+It lets customers easily upload an image, preview their case in real-time, and order directly — all in a sleek, modern UI.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ✨ Features
 
-To learn more about Next.js, take a look at the following resources:
+- 🛠️ End-to-end phone case store crafted with Next.js 15  
+- 💻 Polished home page designed for first impressions  
+- 🎨 One-of-a-kind illustrations tailored to the brand  
+- 💳 Private admin area for tracking and fulfilling orders  
+- 🖥️ Seamless file uploads with drag-and-drop for custom designs  
+- 🌟 Sleek, minimalist UI built with shadcn-ui  
+- 🛒 Interactive case builder for personalized products  
+- 🔑 Secure login powered by Kinde  
+- ✉️ Upcoming feature: confirmation email after payment  
+- ✅ Configuration experience inspired by Apple’s product pages  
+- ⌨️ Fully built in TypeScript for reliability  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 💡 Why I Built This
 
-## Deploy on Vercel
+I wanted to explore building a fully custom e-commerce product configurator from scratch — something that not only works but delivers a premium, minimal, and delightful experience for customers. ChrisCase was the perfect opportunity to push my skills in **Next.js**, **Stripe payments**, **image uploads**, and **UI/UX design** while creating my own brand from the ground up.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠 Problems I Solved
+
+- **Upload feature fix** – The original tutorial’s file upload system was broken due to outdated dependencies. I rewrote it to work with the latest versions.
+- **Stripe payment updates** – Migrated the payment flow to work with modern Stripe APIs.
+- **Progress persistence** – Added back buttons for Step 2 and Step 3 so that if users go back, their progress is saved in `localStorage`.
+- **UI improvements** – Designed a complete, unique brand and visual identity, improving the original layout and design for a more polished experience.
+
+---
+
+## 📚 What I Learned
+
+- Deep dive into the **Next.js 15 App Router** and advanced routing patterns.
+- Handling **real-time image uploads and previews** with drag-and-drop.
+- Creating **state persistence** across multiple steps with localStorage.
+- Integrating **Stripe Checkout** with the latest API changes.
+- Crafting a consistent **brand identity** and UI system from scratch.
+
+---
+
+## ✅ TODO
+
+- [ ] Implement email sending after a successful payment confirmation.
+- [ ] Add more device types and case variations.
+
+---
