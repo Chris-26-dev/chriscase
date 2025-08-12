@@ -14,7 +14,7 @@ export default function Home() {
         <MaxWidthWrapper className='pb-24 lg:grid lg:grid-cols-3 sm:pb-32 lg:gap-x-0 xl:gap-x-8 lg:pt-12 xl:pt-12 lg:pb-52'>
           <div className='col-span-2 px-6 lg:px-0 lg:pt-4'>
             <div className='relative mx-auto text-center lg:text-left flex flex-col items-center lg:items-start'>
-              <div className='absolute w-28 left-0 hidden lg:block'>
+              <div className='absolute w-28 left-0 hidden lg:block mt-8'>
                 {/* i forgot this div right here in the video, it's purely visual gradient and looks nice */}
                 <div className='absolute inset-x-0 bottom-0 bg-gradient-to-t via-slate-50/70 from-slate-50 h-28' />
                 <img src='/i3.png' alt="" className='w-full' />
@@ -27,7 +27,7 @@ export default function Home() {
               <p className='mt-8 text-lg lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap'>
                 Capture your favorite memories with your own,{' '}
                 <span className='font-semibold'>one-of-one</span> phone case.
-                CaseCobra allows you to protect your memories, not just your
+                ChrisCase allows you to protect your memories, not just your
                 phone case.
               </p>
 

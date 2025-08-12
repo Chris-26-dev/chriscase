@@ -36,13 +36,13 @@ const Footer = () => {
           </div>
 
           <div className='flex space-x-6 sm:space-x-4 py-4'>
-            <Link href='https://github.com/your-profile' target='_blank'>
+            <Link href='https://github.com/Chris-26-dev' target='_blank'>
               <Github className='h-5 w-5 text-muted-foreground hover:text-gray-800 transition' />
             </Link>
-             <Link href='https://facebook.com/your-profile' target='_blank'>
+             <Link href='https://facebook.com/christian.panerio.2024' target='_blank'>
               <Facebook className='h-5 w-5 text-muted-foreground hover:text-blue-600 transition' />
             </Link>
-            <Link href='https://linkedin.com/in/your-profile' target='_blank'>
+            <Link href='https://www.linkedin.com/in/christian-panerio-b49567223?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' target='_blank'>
               <Linkedin className='h-5 w-5 text-muted-foreground hover:text-blue-700 transition' />
             </Link>
           </div>

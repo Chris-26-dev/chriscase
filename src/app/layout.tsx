@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "ChrisCase - custom high-quality iphone cases",
   description: "Create custom high-quality iphone cases in seconds",
   icons: {
-    icon: '/i1.png'
+    icon: '/i1.svg'
   }
 };
 

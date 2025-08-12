@@ -4,22 +4,30 @@ import { buttonVariants } from './ui/button'
 import { ArrowRight } from 'lucide-react'
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import SignOutButton from './SignOutButton';
+import Image from 'next/image';
 
 const Navbar = async () => {
     const { getUser } = getKindeServerSession()
     const user = await getUser()
 
-  const isAdmin = user?.email === process.env.ADMIN_EMAIL
+    const isAdmin = user?.email === process.env.ADMIN_EMAIL
 
     return (
-        <nav className='sticky z-[100] h-14 inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
+        <nav className='sticky z-[100] inset-x-0 top-0 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
             <MaxWidthWrapper>
-                <div className='flex h-14 items-center justify-between border-b border-zinc-200'>
+                <div className='flex p-2 sm:p-2.5 items-center justify-between border-b border-zinc-200'>
                     <Link href='/' className='flex z-40 font-semibold'>
-                        chris<span className='bg-black text-white'>case</span>
+                        {/* chris<span className='bg-black text-white'>case</span> */}
+                        <Image
+                            src="/logo.svg" 
+                            alt="ChrisCase Logo"
+                            width={120}        
+                            height={40}        
+                            priority           
+                        />
                     </Link>
 
-                    <div className='h-full flex items-center space-x-4'>
+                    <div className='h-full flex items-center space-x-0 sm:space-x-4'>
                         {user ? (
                             <>
                                 <SignOutButton />
